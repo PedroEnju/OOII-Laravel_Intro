@@ -14,7 +14,7 @@ class StateController extends Controller
      */
     public function index()
     {
-        $states = State::paginate(2);
+        $states = State::paginate(5);
         
         if(request('pesquisa') != null) {
             if(trim(request('pesquisa')) != "") {
@@ -32,7 +32,7 @@ class StateController extends Controller
      */
     public function create()
     {
-        //
+        return view('state.create');
     }
 
     /**
@@ -43,7 +43,16 @@ class StateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $valid = $request->validate([
+            'nome' => 'required', 
+            'uf'   => 'required'
+        ]);
+
+        State::create($valid);
+
+        return redirect('/states')->with([
+            'success' => 'O estado foi cadastrado com sucesso!'
+        ]);
     }
 
     /**

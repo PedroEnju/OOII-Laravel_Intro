@@ -6,6 +6,11 @@
 
 @section("main")
     <h1>Estados</h1>
+    @if(session('success'))
+        <div class="alert alert-success">{{session('success')}}</div>
+    @endif
+    <a href="{{route('states.create')}}" class="btn btn-success btn-sm">Novo</a>
+    <hr>
 
     <form method="post">
         @csrf
