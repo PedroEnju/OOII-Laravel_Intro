@@ -74,7 +74,7 @@ class StateController extends Controller
      */
     public function edit(State $state)
     {
-        //
+        return view("state.create", compact('state'));
     }
 
     /**
@@ -86,7 +86,17 @@ class StateController extends Controller
      */
     public function update(Request $request, State $state)
     {
-        //
+        $valid = $request->validate([
+            'nome' => 'required', 
+            'uf'   => 'required'
+        ]);
+
+        $state->fill($valid);
+        $state->save();
+
+        return redirect('/states')->with([
+            'success' => 'O estado foi atualizado com sucesso!'
+        ]);
     }
 
     /**
@@ -97,6 +107,21 @@ class StateController extends Controller
      */
     public function destroy(State $state)
     {
-        //
+        $state->delete();
+
+        return redirect('/states')->with([
+            'success' => 'Removido com sucesso!'
+        ]);
+    }
+
+    /**
+     * View onde se confirma uma exclusão
+     *
+     * @param  \App\State  $state
+     * @return \Illuminate\Http\Response
+     */
+    public function confirm(State $state)
+    {
+        return view("state.confirm", compact('state'));
     }
 }

@@ -9,14 +9,32 @@
     <a href="{{route('states.index')}}" class="btn btn-warning text-light btn-sm">Voltar</a>
     <hr>
 
-    <form action="{{route('states.store')}}" method="post">
+    <form method="post"
+        @isset($state)
+            action="{{route('states.update', ['state' => $state->id])}}"
+        @else
+            action="{{route('states.store')}}"
+        @endif
+    >
         @csrf
 
+        @isset($state)
+            @method('put')
+        @endif
+
         <label>Nome do Estado</label>
-        <input type="text" name="nome" placeholder="Nome do Estado" class="form-control-sm">
+        <input type="text" name="nome" placeholder="Nome do Estado" class="form-control-sm"
+            @isset($state)
+                value="{{$state->nome}}"
+            @endif
+        >
         <label>UF</label>
-        <input type="text" name="uf" placeholder="UF" class="form-control-sm">
-        <button type="submit" class="btn btn-sm btn-success">Cadastrar</button>
+        <input type="text" name="uf" placeholder="UF" class="form-control-sm"
+            @isset($state)
+                value="{{$state->uf}}"
+            @endif
+        >
+        <button type="submit" class="btn btn-sm btn-success">Salvar</button>
     </form>
 
     @if($errors->any())

@@ -37,6 +37,8 @@ Route::middleware(['tads'])->group(function() {
 
     Route::resource('tasks', 'TaskController')->except(['show']);
 
+    Route::get('/states/{state}/confirm', 'StateController@confirm')->name('states.confirm');
+
 });
 
 
