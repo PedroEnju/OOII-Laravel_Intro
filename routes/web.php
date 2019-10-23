@@ -34,10 +34,11 @@ Route::middleware(['tads'])->group(function() {
     })->name("tads.delete");
 
     Route::resource('states', 'StateController')->except(['show']);
-
+    Route::resource('cities', 'CityController')->except(['show']);
     Route::resource('tasks', 'TaskController')->except(['show']);
 
     Route::get('/states/{state}/confirm', 'StateController@confirm')->name('states.confirm');
+    Route::get('/cities/{city}/confirm', 'CityController@confirm')->name('cities.confirm');
 
 });
 
