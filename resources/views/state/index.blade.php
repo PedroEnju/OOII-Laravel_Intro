@@ -24,7 +24,10 @@
             <div class="col-10">
                 @foreach($states as $state)
                     <div class="row my-1">
-                        <div class="col-9 h4">{{$state->nome}}</div>
+                        <div class="col-8 h4">{{$state->nome}}</div>
+                        <div class="col-1">
+                            {{$state->cities()->count()}}
+                        </div>
                         <div class="col-3">
                             <div class="row">
                                 <a href="{{route('states.edit', ['state' => $state->id])}}" class="btn btn-info btn-sm">Editar</a>
