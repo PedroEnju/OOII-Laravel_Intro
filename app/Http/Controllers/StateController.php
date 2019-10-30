@@ -50,9 +50,9 @@ class StateController extends Controller
 
         State::create($valid);
 
-        return redirect('/states')->with([
+        return redirect('/states')->with(
             'success' => 'O estado foi cadastrado com sucesso!'
-        ]);
+        );
     }
 
     /**

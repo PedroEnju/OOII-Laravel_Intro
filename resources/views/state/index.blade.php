@@ -27,8 +27,8 @@
                         <div class="col-9 h4">{{$state->nome}}</div>
                         <div class="col-3">
                             <div class="row">
-                                <a href="{{route('states.edit', ['state' => $state->id])}}" class="btn btn-info">Editar</a>
-                                <a href="{{route('states.confirm', ['state' => $state->id])}}" class="btn btn-danger ml-1">Excluir</a>
+                                <a href="{{route('states.edit', ['state' => $state->id])}}" class="btn btn-info btn-sm">Editar</a>
+                                <a href="{{route('states.confirm', ['state' => $state->id])}}" class="btn btn-danger btn-sm ml-1">Excluir</a>
                             </div>
                         </div>
                     </div>

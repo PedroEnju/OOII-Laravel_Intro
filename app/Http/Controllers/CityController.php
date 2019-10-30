@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\City;
+use App\State;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
@@ -32,7 +33,9 @@ class CityController extends Controller
      */
     public function create()
     {
-        //
+        $states = \App\State::all();
+
+        return view('city.create', compact('states'));
     }
 
     /**
@@ -43,7 +46,21 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $city = new City();
+
+        $valid = $request->validate([
+            'state_id' => 'required',
+            'nome'     => 'required'
+        ]);
+        $city->fill($valid);
+
+        $state = State::findOrFail($valid["state_id"]);
+        $city->state()->associate($state);
+        $city->save();
+
+        return redirect('/cities')->with(
+            'success', 'A cidade foi cadastrada com sucesso!'
+        );
     }
 
     /**
@@ -65,7 +82,9 @@ class CityController extends Controller
      */
     public function edit(City $city)
     {
-        //
+        $states = \App\State::all();
+
+        return view('city.create', compact('states', 'city'));
     }
 
     /**
@@ -77,7 +96,19 @@ class CityController extends Controller
      */
     public function update(Request $request, City $city)
     {
-        //
+        $valid = $request->validate([
+            'state_id' => 'required',
+            'nome'     => 'required'
+        ]);
+        $city->fill($valid);
+
+        $state = State::findOrFail($valid["state_id"]);
+        $city->state()->associate($state);
+        $city->save();
+
+        return redirect('/cities')->with(
+            'success', 'A cidade foi atualizada com sucesso!'
+        );
     }
 
     /**
@@ -88,7 +119,11 @@ class CityController extends Controller
      */
     public function destroy(City $city)
     {
-        //
+        $city->delete();
+
+        return redirect('/cities')->with([
+            'success' => 'Removido com sucesso!'
+        ]);
     }
 
     /**
